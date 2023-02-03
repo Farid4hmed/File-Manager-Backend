@@ -5,6 +5,7 @@ const initDB = require("./config/db.js");
 const express = require("express");
 const app = express();
 
+const auth = require("./routes/auth");
 initDB();
 
 // health api
@@ -16,7 +17,18 @@ app.get("/api/health", (req, res) => {
     });
 })
 
+app.use("/api/auth", auth);
 
+
+// route not found middleware
+app.use((req, res, next) =>
+    res.status(404).send("You are looking for something that we do not have!")
+);
+
+//error handler middleware
+app.use((err, req, res, next) => {
+    res.status(500).send("Something went wrong! Please try after some time.");
+});
 
 
 const port = process.env.PORT || 3000;
