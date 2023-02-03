@@ -6,9 +6,9 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-app.use(cors());
-
 const auth = require("./routes/auth");
+
+app.use(cors({ origin: "*"}));
 initDB();
 
 // health api
