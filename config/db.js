@@ -3,6 +3,7 @@ dotenv.config();
 
 const mongoose = require("mongoose");
 const mongoURL = process.env.MONGODB_URI;
+console.log(typeof(mongoURL));
 
 function databaseConnection() {
     mongoose.set("strictQuery", true);

@@ -3,7 +3,10 @@ dotenv.config();
 
 const initDB = require("./config/db.js");
 const express = require("express");
+const cors = require("cors");
 const app = express();
+
+app.use(cors());
 
 const auth = require("./routes/auth");
 initDB();
@@ -31,7 +34,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const port = process.env.PORT || 5003;
+const port = process.env.PORT || 3000;
 const host = process.env.HOST || `localhost`;
 
 app.listen(port, () => {
