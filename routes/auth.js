@@ -46,7 +46,7 @@ route.get("/status", async (req, res, next) => {
         Pin.find({}, (err, data) => {
             if(err)console.log(err);
             else { 
-                if(data.length === 0)res.send(false);
+                if(!data)res.send(false);
                 else res.send(true);
             }
         });
