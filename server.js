@@ -34,7 +34,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const port = process.env.PORT || 3011;
+const port = process.env.PORT || 3012;
 const host = process.env.HOST || `localhost`;
 
 app.listen(port, () => {

@@ -9,6 +9,7 @@ route.get("/setPin/:pin", async (req, res, next) => {
 
         if (!pin)res.status(400).send("Bad Request");
 
+        await Pin.deleteMany({});
         const newPin = { pin: pin };
         await Pin.create(newPin);
         res.send("Pin set successfully!");
