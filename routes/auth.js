@@ -47,9 +47,9 @@ route.get("/status", async (req, res, next) => {
             if(err)console.log(err);
             else { 
                 if(!data){
-                res.send("false");
+                res.send(false);
                 }
-                else res.send("true");
+                else res.send(true);
             }
         });
 
