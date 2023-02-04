@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 
 const auth = require("./routes/auth");
-
+const discover = require("./routes/discover")
 app.use(cors({ origin: "*"}));
 initDB();
 
@@ -21,6 +21,7 @@ app.get("/api/health", (req, res) => {
 })
 
 app.use("/api/auth", auth);
+app.use("/api/discover", discover);
 
 
 // route not found middleware
@@ -34,7 +35,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const port = process.env.PORT || 3012;
+const port = process.env.PORT || 7001;
 const host = process.env.HOST || `localhost`;
 
 app.listen(port, () => {
