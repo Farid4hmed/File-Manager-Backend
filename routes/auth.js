@@ -43,11 +43,13 @@ route.get("/verifyPin/:pin", async (req, res, next) => {
 
 route.get("/status", async (req, res, next) => {
     try{
-        Pin.find({}, (err, data) => {
+        Pin.findOne({}, (err, data) => {
             if(err)console.log(err);
             else { 
                 if(!data)res.send(false);
-                else res.send(true);
+                else {
+                    res.send(true);
+                }
             }
         });
 
