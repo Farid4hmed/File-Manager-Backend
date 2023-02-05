@@ -41,7 +41,8 @@ route.get("/file/create", async (req, res, next) => {
         const fileName = req.query.fileName;
         const folderName = req.query.folderName;
         const fileData = req.query.fileData;
-    
+        
+        File.findOneAndDelete({fileName: fileName});
         const newFile = { fileName: fileName, folderName: folderName,  fileData: fileData };
         const result = await File.create(newFile);
         
