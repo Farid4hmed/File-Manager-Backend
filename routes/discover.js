@@ -69,8 +69,7 @@ route.get("/getFiles/:folderName", async (req, res, next) => {
     }
 });
 
-
-
+//
 
 
 module.exports = route;
