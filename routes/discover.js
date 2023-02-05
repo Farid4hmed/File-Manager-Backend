@@ -39,9 +39,10 @@ route.get("/getFolders", (req, res, next) => {
 route.get("/file/create", async (req, res, next) => {
     try{
         const fileName = req.query.fileName;
+        const folderName = req.query.folderName;
         const fileData = req.query.fileData;
-
-        const newFile = { fileName: fileName, fileData: fileData };
+    
+        const newFile = { fileName: fileName, folderName: folderName,  fileData: fileData };
         const result = await File.create(newFile);
         
         if(result)res.send("Successful");
