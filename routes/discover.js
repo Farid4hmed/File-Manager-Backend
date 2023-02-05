@@ -55,9 +55,10 @@ route.get("/file/create", async (req, res, next) => {
     }
 });
 
-route.get("/getFiles", async (req, res, next) => {
+route.get("/getFiles/:folderName", async (req, res, next) => {
     try{
-        File.find({}, (err, data) => {
+        const folderName = req.params.folderName;
+        File.find({ folderName: folderName }, (err, data) => {
             if(err)console.log(err);
             else { res.status(200).send(data); };
         });
