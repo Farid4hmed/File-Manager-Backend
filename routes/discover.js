@@ -59,10 +59,18 @@ route.get("/file/create", async (req, res, next) => {
 route.get("/getFiles/:folderName", async (req, res, next) => {
     try{
         const folderName = req.params.folderName;
-        File.find({ folderName: folderName }, (err, data) => {
+        if(folderName){
+            File.find({ folderName: folderName }, (err, data) => {
             if(err)console.log(err);
             else { res.status(200).send(data); };
-        });
+            });
+        }
+        else {
+            File.find({}, (err, data) => {
+                if(err)console.log(err);
+                else { res.status(200).send(data); };
+            });
+        }
     }
     catch(err){
         console.log(err);
