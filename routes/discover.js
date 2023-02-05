@@ -65,12 +65,6 @@ route.get("/getFiles/:folderName", async (req, res, next) => {
             else { res.status(200).send(data); };
             });
         }
-        else {
-            File.find({}, (err, data) => {
-                if(err)console.log(err);
-                else { res.status(200).send(data); };
-            });
-        }
     }
     catch(err){
         console.log(err);
@@ -78,7 +72,18 @@ route.get("/getFiles/:folderName", async (req, res, next) => {
     }
 });
 
-//
+route.get("/getFiles", async (req, res, next) => {
+    try{
+            File.find({}, (err, data) => {
+            if(err)console.log(err);
+            else { res.status(200).send(data); };
+            });
+    }
+    catch(err){
+        console.log(err);
+        next(err);
+    }
+});
 
 
 module.exports = route;
