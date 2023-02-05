@@ -2,7 +2,13 @@ const Router = require("express");
 const route = Router();
 
 const Folder = require("../models/folder");
+const File = require("../models/file");
 
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 route.get("/folder/create/:foldername", async (req, res, next) => {
     try{
@@ -20,6 +26,37 @@ route.get("/folder/create/:foldername", async (req, res, next) => {
 route.get("/getFolders", (req, res, next) => {
     try{
          Folder.find({}, (err, data) => {
+            if(err)console.log(err);
+            else { res.status(200).send(data); };
+        });
+    }
+    catch(err){
+        console.log(err);
+        next(err);
+    }
+});
+
+route.get("/file/create", async (req, res, next) => {
+    try{
+        const fileName = req.query.fileName;
+        const fileData = req.query.fileData;
+
+        const newFile = { fileName: fileName, fileData: fileData };
+        const result = await File.create(newFile);
+        
+        if(result)res.send("Successful");
+        else res.send("Unsuccessful");
+
+    }
+    catch(err){
+        console.log(err);
+        next(err);
+    }
+});
+
+route.get("/getFiles", async (req, res, next) => {
+    try{
+        File.find({}, (err, data) => {
             if(err)console.log(err);
             else { res.status(200).send(data); };
         });

@@ -8,7 +8,9 @@ const app = express();
 
 const auth = require("./routes/auth");
 const discover = require("./routes/discover")
+
 app.use(cors({ origin: "*"}));
+
 initDB();
 
 // health api
@@ -35,7 +37,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const port = process.env.PORT || 7001;
+const port = process.env.PORT || 7002;
 const host = process.env.HOST || `localhost`;
 
 app.listen(port, () => {
