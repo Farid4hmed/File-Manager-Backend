@@ -7,8 +7,8 @@ const File = require("../models/file");
 const express = require("express");
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+route.use(express.json());
+route.use(express.urlencoded({ extended: true }));
 
 // Create a new folder
 route.post("/folder/create", async (req, res, next) => {
@@ -35,17 +35,25 @@ route.get("/folders/:email", async (req, res, next) => {
 });
 
 // Create a new file
-route.post("/file/create", async (req, res, next) => {
+route.post('/file/create', async (req, res, next) => {
     try {
+        console.log(req.body);
         const { fileName, folderName, fileData, email } = req.body;
 
-        await File.findOneAndDelete({ fileName: fileName, email: email });
-        const newFile = { fileName: fileName, folderName: folderName, fileData: fileData, email: email };
+        // Delete the existing file if it exists
+        const response = await File.findOneAndDelete({ fileName: fileName, email: email });
+        console.log('resp', response)
+        // Create the new file
+        const newFile = { fileName, folderName, fileData, email };
         const result = await File.create(newFile);
 
-        if (result) res.status(201).send("File Created Successfully");
-        else res.status(400).send("File Creation Unsuccessful!");
+        if (result) {
+            res.status(201).send('File Created Successfully');
+        } else {
+            res.status(400).send('File Creation Unsuccessful!');
+        }
     } catch (err) {
+        console.log(err);
         next(err);
     }
 });
